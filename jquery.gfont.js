@@ -23,7 +23,9 @@
 
     $.fn.gfont = function() {
         $.gfont.apply(null, arguments);
-        var family = $.map(arguments, function(value) { return '"' + value + '"'; }).join(', ');
+        var family = $.map(arguments, function(value) {
+            return '"' + value.replace(/(.*):.*/, '$1') + '"';
+        }).join(', ');
         return this.each(function() {
             var tmp = $(this).css('font-family');
             $(this).css('font-family', family + (tmp ? ', ' + tmp : ''));
